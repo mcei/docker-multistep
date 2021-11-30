@@ -1,9 +1,9 @@
-FROM golang:alpine as builder
+FROM golang:alpine as compiler
 WORKDIR /app
-COPY . .
-CMD go build -o hello
+COPY ./main.go .
+RUN go build main.go
 
 FROM alpine
-COPY --from=builder /app/hello .
-CMD ./hello
+COPY --from=compiler /app/main .
+CMD ./main
 
